@@ -60,7 +60,17 @@ public class Sorting {
         }
     }
 
-    public void MergeRev(int[] arr, int high, int mid, int low) {
+    public void MergeSort(int arr[],int low, int high) {
+        if(low < high) {
+            int mid = (low + high) / 2;
+            MergeSort(arr, low, mid);
+            MergeSort(arr, mid+1, high);
+            Merge(arr, low, mid, high);
+            countPerbandingan++;
+        }
+    }
+
+    public void MergeRev(int[] arr, int low, int mid, int high) {
         int left = mid - low + 1;
         int right = high - mid;
 
@@ -78,7 +88,7 @@ public class Sorting {
         int i = 0, j = 0, k = low ;
 
         while (i < left && j < right) {
-            if (leftArray[i] <= rightArray[j] ){
+            if (leftArray[i] >= rightArray[j] ){
                 arr[k] = leftArray[i];
                 i++;
             } else {
@@ -90,25 +100,25 @@ public class Sorting {
         }
         
         
-        while (i > left) {
+        while (i < left) {
             arr[k] = leftArray[i];
             i++;
             k++;
         }
 
-        while (j > right) {
+        while (j < right) {
             arr[k] = rightArray[j];
             j++;
             k++;
         }
     }
 
-    public void MergeSort(int arr[],int low, int high) {
+    public void MergeSortRev(int arr[],int low, int high) {
         if(low < high) {
             int mid = (low + high) / 2;
-            MergeSort(arr, low, mid);
-            MergeSort(arr, mid+1, high);
-            Merge(arr, low, mid, high);
+            MergeSortRev(arr, low, mid);
+            MergeSortRev(arr, mid+1, high);
+            MergeRev(arr, low, mid, high);
             countPerbandingan++;
         }
     }
@@ -119,7 +129,8 @@ public class Sorting {
         System.out.println("\n-------- Advance Sorting ----------");
 
         System.out.println("1. Sorting 10 Data");
-        System.out.println("2. Sorting 10000 Data");
+        System.out.println("2. Reversed Sorting 10 Data");
+        System.out.println("3. Sorting 10000 Data");
         System.out.print("Masukan pilihan Anda : ");
         int pilihan = input.nextInt();
         
@@ -127,16 +138,30 @@ public class Sorting {
                 case 1:
                     int[] arr = {9, 2, 4, 5,6, 6, 7, 7}; 
                     double mulai = System.nanoTime(); 
-                    merge.MergeSort(arr, 0, arr.length - 1); 
+                    
+                    merge.MergeSort(arr, 0, arr.length - 1);
                     double akhir = System.nanoTime(); 
                     //long waktu = (akhir - mulai) / 1_000_000;
-                
+            
                     System.out.println(Arrays.toString(arr));
                     System.out.println("\nWaktu eksekusi: " + ((akhir-mulai)/1_000_000.0) + " milisekon");
                     System.out.println("Jumlah Perulangan: " + merge.countPerulangan);
                     System.out.println("Jumlah perbandingan: " + merge.countPerbandingan);
                     break;
                 case 2:
+                    int[] arrRev = {9, 2, 4, 5,6, 6, 7, 7}; 
+                    double mulai3 = System.nanoTime(); 
+                
+                    merge.MergeSortRev(arrRev, 0, arrRev.length - 1);
+                    double akhir3 = System.nanoTime(); 
+                
+        
+                    System.out.println(Arrays.toString(arrRev));
+                    System.out.println("\nWaktu eksekusi: " + ((akhir3-mulai3)/1_000_000.0) + " milisekon");
+                    System.out.println("Jumlah Perulangan: " + merge.countPerulangan);
+                    System.out.println("Jumlah perbandingan: " + merge.countPerbandingan);
+                    break;
+                case 3:
                     int[] largeArray = Sorting.generateArr(10000);
                     double mulai2 = System.nanoTime(); 
                     merge.MergeSort(largeArray, 0, largeArray.length - 1); 

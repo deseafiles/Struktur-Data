@@ -12,7 +12,7 @@ public class Main {
         System.out.println("1. Stack");
         System.out.println("2. Queue");
         System.out.println("3. Insertion Sort");
-        System.out.println("3. Merge Sorting");
+        System.out.println("4. Merge Sorting");
         System.out.println("0. Exit");
         System.out.print("Masukkan pilihan Anda : ");
         int pilihan = input.nextInt();
@@ -21,14 +21,15 @@ public class Main {
             case 1:
             Stack.stackMenu();
                 break;
-            case 3:
+            case 4:
             Sorting.sortMenu(); 
                 break; 
             case 0:
+                System.out.println("Program Selesai");
                 System.exit(0);
                 break;
             default:
-            System.out.println("Pilihan tidak sesuai.");
+                System.out.println("Pilihan tidak sesuai.");
                 break;
                 }
             }  
