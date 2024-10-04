@@ -8,7 +8,7 @@ public class Main {
         Scanner input = new Scanner(System.in);
         
         while(true) {
-        System.out.println("------------ Struktur Data ---------");
+        System.out.println("\n------------ Struktur Data ---------");
         System.out.println("1. Stack");
         System.out.println("2. Queue");
         System.out.println("3. Insertion Sort");
@@ -21,6 +21,8 @@ public class Main {
             case 1:
             Stack.stackMenu();
                 break;
+            case 2:
+                // Queue.queueMenu(); nanti dirapikan 
             case 4:
             Sorting.sortMenu(); 
                 break; 

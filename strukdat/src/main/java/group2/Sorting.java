@@ -126,11 +126,14 @@ public class Sorting {
     public static void sortMenu() {
         Scanner input = new Scanner(System.in);
         Sorting merge = new Sorting();
+        boolean running = true;
+        
+        while(running) {
         System.out.println("\n-------- Advance Sorting ----------");
-
         System.out.println("1. Sorting 10 Data");
         System.out.println("2. Reversed Sorting 10 Data");
         System.out.println("3. Sorting 10000 Data");
+        System.out.println("0. Exit");
         System.out.print("Masukan pilihan Anda : ");
         int pilihan = input.nextInt();
         
@@ -171,8 +174,14 @@ public class Sorting {
                     System.out.println(Arrays.toString(largeArray));
                     System.out.println("Waktu eksekusi: " + ((akhir2-mulai2) / 1_000_000.0) + " milisekon");
                     break;
-                default:
+                case 0:
+                    running = false;
+                    System.out.println("Keluar dari menu.");
                     break;
+                default:
+                    System.out.println("Pilihann Tidak ada.");
+                    continue;
             }
         } 
     }
+}
