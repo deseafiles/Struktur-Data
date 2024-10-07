@@ -58,12 +58,21 @@ public class Sorting {
             j++;
             k++;
         }
+        System.out.println("Array setelah merge dari indeks " + left + " hingga " + right + ": ");
+        printArray(arr, left, right);
+
     }
 
     public void MergeSort(int arr[],int low, int high) {
         if(low < high) {
             int mid = (low + high) / 2;
+            
+            System.out.println("Left subarray: ");
+            printArray(arr, low, mid);
             MergeSort(arr, low, mid);
+
+            System.out.println("Right subarray: ");
+            printArray(arr, mid + 1, high);
             MergeSort(arr, mid+1, high);
             Merge(arr, low, mid, high);
             countPerbandingan++;
@@ -116,19 +125,35 @@ public class Sorting {
     public void MergeSortRev(int arr[],int low, int high) {
         if(low < high) {
             int mid = (low + high) / 2;
+
             MergeSortRev(arr, low, mid);
+
             MergeSortRev(arr, mid+1, high);
             MergeRev(arr, low, mid, high);
             countPerbandingan++;
         }
     }
 
+    public void printArray(int[] arr, int start, int end) {
+        for (int i = start; i <= end; ++i) {
+            System.out.print(arr[i] + " ");
+        }
+        System.out.println();
+    }
+
+    public void printArray(int[] arr) {
+        int n = arr.length;
+        for (int i = 0; i < n; ++i)
+            System.out.print(arr[i] + " ");
+        System.out.println();
+    }
+
     public static void sortMenu() {
         Scanner input = new Scanner(System.in);
         Sorting merge = new Sorting();
         boolean running = true;
-        
         while(running) {
+
         System.out.println("\n-------- Advance Sorting ----------");
         System.out.println("1. Sorting 10 Data");
         System.out.println("2. Reversed Sorting 10 Data");
@@ -182,6 +207,6 @@ public class Sorting {
                     System.out.println("Pilihann Tidak ada.");
                     continue;
             }
-        } 
-    }
+         } 
+     }
 }
