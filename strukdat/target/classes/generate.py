@@ -1,6 +1,6 @@
 import random
 
-random_array = random.sample(range(1, 11000), 10000)
+random_array = random.sample(range(1, 10001), 10000)
 sorted_array = sorted(random_array)
 reverse_array  = list(reversed(sorted_array))
 
