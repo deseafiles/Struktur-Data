@@ -1,11 +1,11 @@
-package group2;
+package group2.Sorting;
 
 import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
 
-public class Sorting {
-    int countPerulangan = 0, countPerbandingan;
+public class MergeSorting {
+    int countPenukaran = 0, countPemecahan;
 
     public static int[] generateArr(int n) {
         Random random = new Random();  
@@ -41,7 +41,7 @@ public class Sorting {
             } else {
                 arr[k] = rightArray[j];
                 j++;
-                countPerulangan++;
+                countPenukaran++;
             }
             k++;
             
@@ -76,7 +76,7 @@ public class Sorting {
             printArray(arr, mid + 1, high);
             MergeSort(arr, mid+1, high);
             Merge(arr, low, mid, high);
-            countPerbandingan++;
+            countPemecahan++;
         }
     }
 
@@ -106,7 +106,7 @@ public class Sorting {
                 j++;
             }
             k++;
-            countPerulangan++;
+            countPenukaran++;
         }
         
         
@@ -131,7 +131,7 @@ public class Sorting {
 
             MergeSortRev(arr, mid+1, high);
             MergeRev(arr, low, mid, high);
-            countPerbandingan++;
+            countPemecahan++;
         }
     }
 
@@ -151,7 +151,7 @@ public class Sorting {
 
     public static void sortMenu() {
         Scanner input = new Scanner(System.in);
-        Sorting merge = new Sorting();
+        MergeSorting merge = new MergeSorting();
         boolean running = true;
         while(running) {
 
@@ -159,6 +159,7 @@ public class Sorting {
         System.out.println("1. Sorting 10 Data");
         System.out.println("2. Reversed Sorting 10 Data");
         System.out.println("3. Sorting 10000 Data");
+        System.out.println("4. Print Step Sorting 10 Data");
         System.out.println("0. Exit");
         System.out.print("Masukan pilihan Anda : ");
         int pilihan = input.nextInt();
@@ -171,13 +172,12 @@ public class Sorting {
                     double mulai = System.nanoTime(); 
                     
                     merge.MergeSort(arr, 0, arr.length - 1);
-                    double akhir = System.nanoTime(); 
-                    //long waktu = (akhir - mulai) / 1_000_000;
+                    double akhir = System.nanoTime();
             
                     System.out.println(Arrays.toString(arr));
                     System.out.println("\nWaktu eksekusi: " + ((akhir-mulai)/1_000_000.0) + " milisekon");
-                    System.out.println("Jumlah Perulangan: " + merge.countPerulangan);
-                    System.out.println("Jumlah Pemecahan: " + merge.countPerbandingan);
+                    System.out.println("Jumlah Penukaran: " + merge.countPenukaran);
+                    System.out.println("Jumlah Pemecahan: " + merge.countPemecahan);
                     break;
                 case 2:
                     int[] arrRev = {9,8,7,6,5,4,3,2,1,0 }; 
@@ -189,20 +189,25 @@ public class Sorting {
         
                     System.out.println(Arrays.toString(arrRev));
                     System.out.println("\nWaktu eksekusi: " + ((akhir3-mulai3)/1_000_000.0) + " milisekon");
-                    System.out.println("Jumlah Perulangan: " + merge.countPerulangan);
-                    System.out.println("Jumlah pemecahan: " + merge.countPerbandingan);
+                    System.out.println("Jumlah Penukaran: " + merge.countPenukaran);
+                    System.out.println("Jumlah pemecahan: " + merge.countPemecahan);
                     break;
                 case 3:
-                    int[] largeArray = Sorting.generateArr(10000);
+                    int[] largeArray = MergeSorting.generateArr(10000);
                     // System.out.println(Arrays.toString(largeArray));
                     // System.out.println(" ");
                     double mulai2 = System.nanoTime(); 
                     merge.MergeSort(largeArray, 0, largeArray.length - 1); 
                     double akhir2 = System.nanoTime(); 
-                    //long waktu2 = (akhir2 - mulai2) / 1_000_000;
                     
                     System.out.println(Arrays.toString(largeArray));
-                    System.out.println("Waktu eksekusi: " + ((akhir2-mulai2) / 1_000_000.0) + " milisekon");
+                    System.out.println("\nWaktu eksekusi: " + ((akhir2-mulai2) / 1_000_000.0) + " milisekon");
+                    break;    
+                case 4:
+                    int[] arr4 = {9, 8, 7, 6, 5, 4, 3, 2, 1, 0};
+                    merge.MergeSort(arr4, 0, arr4.length - 1);
+                    System.out.println("\nJumlah Penukaran: " + merge.countPenukaran);
+                    System.out.println("Jumlah Pemecahan: " + merge.countPemecahan);
                     break;
                 case 0:
                     running = false;

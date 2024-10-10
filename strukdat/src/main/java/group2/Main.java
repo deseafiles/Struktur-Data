@@ -2,6 +2,8 @@ package group2;
 
 import java.util.Scanner;
 import group2.LinkedList.Stack;
+import group2.Sorting.MergeSorting;
+// import group2.LinkedList.Queue;
 
 public class Main {
     public static void main(String[] args) {
@@ -22,9 +24,9 @@ public class Main {
             Stack.stackMenu();
                 break;
             case 2:
-                // Queue.queueMenu(); nanti dirapikan 
+            // Queue.queueMenu();
             case 4:
-            Sorting.sortMenu(); 
+            MergeSorting.sortMenu(); 
                 break; 
             case 0:
                 System.out.println("Program Selesai");

@@ -1,5 +1,6 @@
 package group2.LinkedList;
 
+
 import java.util.EmptyStackException;
 import java.util.Scanner;
 
