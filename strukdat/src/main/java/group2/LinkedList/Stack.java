@@ -1,6 +1,5 @@
 package group2.LinkedList;
 
-
 import java.util.EmptyStackException;
 import java.util.Scanner;
 
@@ -13,7 +12,7 @@ class Node {
         this.value = value;
     }
 
-    public Node getNext(){
+    public Node getNext() {
         return next;
     }
 
@@ -34,10 +33,12 @@ public class Stack {
         if (newStack != null) {
             newStack.setNext(top);
             top = newStack;
-        } 
+        }
     }
 
-    public int deleteStack(){ // aka. pop
+    // [2, 4, 2, 4, 5]
+
+    public int deleteStack() { // aka. pop
         if (this.top == null) {
             throw new EmptyStackException();
         }
@@ -46,7 +47,7 @@ public class Stack {
         return value;
     }
 
-    public int peekStack(){
+    public int peekStack() {
         if (this.top == null) {
             throw new EmptyStackException();
         }
@@ -71,7 +72,7 @@ public class Stack {
                 case 1:
                     System.out.print("Masukkan angka: ");
                     int angka = input.nextInt();
-                    stack.createStack(angka);  
+                    stack.createStack(angka);
                     System.out.println("Nilai " + angka + " telah ditambahkan.");
                     break;
                 case 2:
