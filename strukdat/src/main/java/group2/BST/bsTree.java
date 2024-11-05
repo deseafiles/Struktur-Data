@@ -1,5 +1,8 @@
 package group2.BST;
 
+import java.util.EmptyStackException;
+import java.util.Scanner;
+
 class Node {
     private Node left;
     private char key;
@@ -37,11 +40,30 @@ public class bsTree {
         this.root = null;
     }
 
+    public boolean isExist(char key) {
+        return isExist(root, key);
+    }
+
+    public boolean isExist(Node root, char key) {
+        if (root == null) {
+            return false;
+        } 
+        if (key == root.getKey()) {
+            return true;
+        } else if (key < root.getKey()) {
+            return isExist(root.getLeft(), key);
+        } else {
+            return isExist(root.getRight(), key);
+        }
+    }
+
     public boolean add(char key) {
         Node newNode = new Node(key);
+        if (isExist(root, key)) {
+            return false;
+        }
         if (root == null) {
             this.root = newNode;
-            return true;
         } else {
             Node currentNode = root;
             while (true) {
@@ -51,14 +73,13 @@ public class bsTree {
                         break;
                     }
                     currentNode = currentNode.getLeft();
-                } else if (key > currentNode.getKey()) {
+                } else {
                     if (currentNode.getRight() == null) {
                         currentNode.setRight(newNode);
                         break;
-                    }
+                    } else {
                     currentNode = currentNode.getRight();
-                } else {
-                    return false; 
+                    }
                 }
             }
         }
@@ -73,7 +94,7 @@ public class bsTree {
 
     private Node removeNode(Node node, char key) {
         if (node == null) {
-            return null; 
+            return node; 
         }
 
         if (key < node.getKey()) {
@@ -86,7 +107,9 @@ public class bsTree {
             } else if (node.getRight() == null) {
                 return node.getLeft(); 
             }
-            node.setRight(findMin(node.getRight())); 
+            Node temp = findMin(node.getRight());
+            node.setRight(removeNode(node.getRight(), temp.getKey()));
+            node.setRight(findMin(node.getRight()));
         }
         return node;
     }
@@ -155,20 +178,73 @@ public class bsTree {
 
     public static void bsTreeMenu() {
         bsTree tree = new bsTree();
-        tree.add('d');
-        tree.add('b');
-        tree.add('a');
-        tree.add('c');
-        tree.add('f');
-        tree.add('e');
-        
-        tree.printTree();
+        Scanner input = new Scanner(System.in);
+        boolean running = true;
 
-        tree.displayKeysInOrder();
-        tree.displayKeysPreOrder();
-        tree.displayKeysPostOrder();
-        
-        tree.remove('f');
-        tree.printTree();
+        while (running) {
+            System.out.println("\n-------- Binary Search Tree ----------");
+            System.out.println("1. Add Key");
+            System.out.println("2. Remove Key");
+            System.out.println("3. Is Exist");
+            System.out.println("4. Pre Order Transversal");
+            System.out.println("5. In Order Transversal");
+            System.out.println("6. Post Order Transversal");
+            System.out.println("7. Visualize");
+            System.out.println("0. Exit");
+            System.out.print("Masukkan pilihanmu: ");
+            int pilihan = input.nextInt();
+
+            switch (pilihan) {
+                case 1:
+                    System.out.print("Masukkan huruf: ");
+                    char huruf = input.next().charAt(0);
+                    if (!tree.isExist(huruf)){
+                        tree.add(huruf);
+                        System.out.println("Key " + huruf + " berhasil ditambahkan!");
+                    } else {
+                        System.out.println("Key " + huruf + " sudah ada di tree!");
+                    }
+                    break;
+                case 2:
+                    try {
+                        System.out.print("Masukkan huruf: ");
+                        char hurufRem = input.next().charAt(0);
+                        tree.remove(hurufRem);
+                        System.out.println("Nilai yang dihapus: " + hurufRem);
+                    } catch (EmptyStackException e) {
+                        System.out.println("Tree kosong!");
+                    }
+                    break;
+                case 3:
+                    System.out.print("Masukan Key : ");
+                    char key = input.next().charAt(0);
+                    if (tree.isExist(key)) {
+                        System.out.println("Key " + key + "ditemukan!");
+                    } else {
+                        System.out.println("Key " + key + "tidak ditemukan!");
+                    }
+                    break;
+                case 4:
+                    tree.displayKeysPreOrder();
+                    break;
+                case 5:
+                    tree.displayKeysInOrder();
+                    break;
+                case 6:
+                    tree.displayKeysPostOrder();
+                    break;
+                case 7:
+                    System.out.println("Visualisasi Tree : ");
+                    tree.printTree();
+                    break;
+                case 0:
+                    running = false;
+                    System.out.println("Keluar dari menu.");
+                    break;
+                default:
+                    System.out.println("Pilihan tidak valid.");
+                    continue;
+            }
+        }
     }
 }
