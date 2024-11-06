@@ -1,4 +1,4 @@
-package group2.BST;
+package group2.Tree;
 
 import java.util.EmptyStackException;
 import java.util.Scanner;
@@ -59,9 +59,11 @@ public class bsTree {
 
     public boolean add(char key) {
         Node newNode = new Node(key);
+        
         if (isExist(root, key)) {
             return false;
         }
+
         if (root == null) {
             this.root = newNode;
         } else {

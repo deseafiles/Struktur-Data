@@ -3,10 +3,10 @@ package group2;
 import java.util.Scanner;
 
 import group2.AdvancedSorting.MergeSorting;
-import group2.BST.bsTree;
 import group2.LinkedList.Queue;
 import group2.LinkedList.Stack;
 import group2.SimpleSorting.BubbleSort;
+import group2.Tree.bsTree;
 
 
 public class Main {
