@@ -106,10 +106,10 @@ public class Tes {
             }
         }
 
-        newNode.setRed(true); // Set the new node as red
+        newNode.setRed(true); 
         fixAfterInsertion(newNode);
 
-        root.setRed(false); // Ensure the root is always black
+        root.setRed(false); 
         return true;
     }
 
@@ -214,7 +214,7 @@ public class Tes {
     public static void main(String [] args) {
         Tes tree = new Tes();
 
-        // Add elements to the tree
+
         tree.add('k');
         tree.add('e');
         tree.add('c');
@@ -223,7 +223,6 @@ public class Tes {
         tree.add('a');
         tree.add('d');
 
-        // Print tree
         tree.printTree();
     }
 }
