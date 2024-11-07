@@ -66,6 +66,7 @@ public class Tes {
             return false;
         }
         if (key == root.getKey()) {
+            System.out.println("Key ada");
             return true;
         } else if (key < root.getKey()) {
             return isExist(root.getLeft(), key);
@@ -106,10 +107,10 @@ public class Tes {
             }
         }
 
-        newNode.setRed(true); // Set the new node as red
+        newNode.setRed(true); 
         fixAfterInsertion(newNode);
 
-        root.setRed(false); // Ensure the root is always black
+        root.setRed(false); 
         return true;
     }
 
@@ -204,17 +205,31 @@ public class Tes {
     }
 
     private void printTree(Node node, int level) {
-        if (node != null) {
-            printTree(node.getRight(), level + 1);
-            System.out.printf("%s%c%n", "    ".repeat(level), node.getKey());
-            printTree(node.getLeft(), level + 1);
+        if (node == null) return;
+    
+        level += 4;
+        printTree(node.getRight(), level+ 1);
+        System.out.println();
+        
+        // Mencetak spasi untuk menyesuaikan posisi berdasarkan level
+        for (int i = 4; i < level; i++) {
+            System.out.print(" ");
         }
-    }
+    
+        // Mencetak nilai node dengan warna: merah untuk node merah, default untuk node hitam
+        if (node.isRed()) {
+            System.out.print("\033[1;31m" + node.getKey() + "\033[0m"); // Merah
+        } else {
+            System.out.print(node.getKey()); // Hitam 
+        }
+        
+        printTree(node.getLeft(), level + 1);
+    }   
 
     public static void main(String [] args) {
         Tes tree = new Tes();
 
-        // Add elements to the tree
+        tree.add('j');
         tree.add('k');
         tree.add('e');
         tree.add('c');
@@ -223,7 +238,10 @@ public class Tes {
         tree.add('a');
         tree.add('d');
 
-        // Print tree
+        tree.isExist('d');
+
+
+     
         tree.printTree();
     }
 }
