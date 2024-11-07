@@ -229,7 +229,11 @@ public class Tes {
     public static void main(String [] args) {
         Tes tree = new Tes();
 
+<<<<<<< HEAD
         tree.add('j');
+=======
+
+>>>>>>> bc7b93d8d74288b219f337172e70c31959624764
         tree.add('k');
         tree.add('e');
         tree.add('c');
@@ -238,10 +242,13 @@ public class Tes {
         tree.add('a');
         tree.add('d');
 
+<<<<<<< HEAD
         tree.isExist('d');
 
 
      
+=======
+>>>>>>> bc7b93d8d74288b219f337172e70c31959624764
         tree.printTree();
     }
 }
