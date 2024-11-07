@@ -1,6 +1,6 @@
 package group2.Tree;
 
-
+public class rbTree {
 class Node {
     private char key;
     private Node right;
@@ -50,10 +50,10 @@ class Node {
     }
 }
 
-public class Tes {
+class Tree {
     private Node root;
 
-    public Tes() {
+    public Tree() {
         this.root = null;
     }
 
@@ -200,6 +200,50 @@ public class Tes {
         node.setParent(parent);
     }
 
+    public void preOrderTraversal(Node node) {
+        if (node!= null) {
+            System.out.print(node.getKey() + " ");
+            preOrderTraversal(node.getLeft());
+            preOrderTraversal(node.getRight());
+        }
+    }
+
+    public void inOrderTraversal(Node node) {
+        if (node != null) {
+            inOrderTraversal(node.getLeft());
+            System.out.print(node.getKey() + " ");
+            inOrderTraversal(node.getRight());
+        }
+    }
+
+    public void post0rderTraversal(Node node) {
+        if (node != null) {
+            post0rderTraversal(node.getLeft());
+            post0rderTraversal(node.getRight());
+            System.out.print(node.getKey() + " ");
+        }
+    }
+
+    public void displayKeysPreOrder() {
+        System.out.print("Pre Order: ");
+        preOrderTraversal(root);
+        System.out.println();
+    }
+
+    public void displayKeysInOrder() {
+        System.out.print("In Order: ");
+        inOrderTraversal(root);
+        System.out.println();
+    }
+
+    public void displayKeysPostOrder() {
+        System.out.print("Post Order: ");
+        post0rderTraversal(root);
+        System.out.println();
+    }
+
+
+
     public void printTree() {
         printTree(root, 0);
     }
@@ -211,12 +255,10 @@ public class Tes {
         printTree(node.getRight(), level+ 1);
         System.out.println();
         
-        // Mencetak spasi untuk menyesuaikan posisi berdasarkan level
         for (int i = 4; i < level; i++) {
             System.out.print(" ");
         }
-    
-        // Mencetak nilai node dengan warna: merah untuk node merah, default untuk node hitam
+
         if (node.isRed()) {
             System.out.print("\033[1;31m" + node.getKey() + "\033[0m"); // Merah
         } else {
@@ -226,14 +268,13 @@ public class Tes {
         printTree(node.getLeft(), level + 1);
     }   
 
+}
+
     public static void main(String [] args) {
-        Tes tree = new Tes();
+        rbTree rbTree = new rbTree();
+        Tree tree = rbTree.new Tree();
+        
 
-<<<<<<< HEAD
-        tree.add('j');
-=======
-
->>>>>>> bc7b93d8d74288b219f337172e70c31959624764
         tree.add('k');
         tree.add('e');
         tree.add('c');
@@ -242,13 +283,12 @@ public class Tes {
         tree.add('a');
         tree.add('d');
 
-<<<<<<< HEAD
-        tree.isExist('d');
+        tree.displayKeysInOrder();
+        tree.displayKeysPostOrder();
+        tree.displayKeysPreOrder();
 
 
      
-=======
->>>>>>> bc7b93d8d74288b219f337172e70c31959624764
         tree.printTree();
     }
 }
