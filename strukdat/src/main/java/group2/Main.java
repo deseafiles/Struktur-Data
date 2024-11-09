@@ -20,6 +20,7 @@ public class Main {
             System.out.println("3. Simple Sorting");
             System.out.println("4. Merge Sorting");
             System.out.println("5. Binary Search Tree");
+            System.out.println("6. Red Black");
             System.out.println("0. Exit");
             System.out.print("Masukkan pilihan Anda : ");
             int pilihan = input.nextInt();

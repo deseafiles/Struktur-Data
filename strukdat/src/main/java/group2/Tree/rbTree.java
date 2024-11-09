@@ -1,4 +1,5 @@
 package group2.Tree;
+import java.util.Scanner;
 
 public class rbTree {
 class Node {
@@ -65,14 +66,14 @@ class Tree {
         if (root == null) {
             return false;
         }
+
         if (key == root.getKey()) {
-            System.out.println("Key ada");
             return true;
         } else if (key < root.getKey()) {
             return isExist(root.getLeft(), key);
         } else {
             return isExist(root.getRight(), key);
-        }
+        } 
     }
 
     public boolean add(char key) {
@@ -118,12 +119,17 @@ class Tree {
         while (newNode != root && newNode.getParent() != null && newNode.getParent().isRed()) {
             Node parent = newNode.getParent();
             Node grandParent = parent.getParent();
-            Node uncle = (grandParent.getLeft() == parent) ? grandParent.getRight() : grandParent.getLeft();
+
+            if (grandParent == null) {
+                break;
+            }
+
+           Node uncleRight = grandParent.getRight();
 
             if (parent == grandParent.getLeft()) {
-                if (uncle != null && uncle.isRed()) {
+                if (uncleRight != null && uncleRight.isRed()) {
                     parent.setRed(false);
-                    uncle.setRed(false);
+                    uncleRight.setRed(false);
                     grandParent.setRed(true);
                     newNode = grandParent;
                 } else {
@@ -136,9 +142,10 @@ class Tree {
                     rotateRight(grandParent);
                 }
             } else {
-                if (uncle != null && uncle.isRed()) {
+                Node uncleLeft = grandParent.getLeft();
+                if (uncleLeft != null && uncleLeft.isRed()) {
                     parent.setRed(false);
-                    uncle.setRed(false);
+                    uncleLeft.setRed(false);
                     grandParent.setRed(true);
                     newNode = grandParent;
                 } else {
@@ -153,6 +160,7 @@ class Tree {
             }
         }
     }
+
 
     private void rotateRight(Node node) {
         Node parent = node.getLeft();
@@ -200,6 +208,8 @@ class Tree {
         node.setParent(parent);
     }
 
+    //public int size (Node node)
+
     public void preOrderTraversal(Node node) {
         if (node!= null) {
             System.out.print(node.getKey() + " ");
@@ -242,8 +252,6 @@ class Tree {
         System.out.println();
     }
 
-
-
     public void printTree() {
         printTree(root, 0);
     }
@@ -260,7 +268,7 @@ class Tree {
         }
 
         if (node.isRed()) {
-            System.out.print("\033[1;31m" + node.getKey() + "\033[0m"); // Merah
+            System.out.print("\033[38;2;255;182;193m" + node.getKey() + "\033[0m"); // Merah
         } else {
             System.out.print(node.getKey()); // Hitam 
         }
@@ -268,27 +276,85 @@ class Tree {
         printTree(node.getLeft(), level + 1);
     }   
 
-}
+    public int height(Node node) {
+        if (node == null) {
+            return 0;
+        } else {
+            int heightLeft = height(node.getLeft());
+            int heightRight = height(node.getRight());
+
+            if (heightLeft >= heightRight) {
+                return heightLeft + 1;
+            } else {
+                return heightRight + 1;
+            }
+            }
+        }
+    }
 
     public static void main(String [] args) {
         rbTree rbTree = new rbTree();
         Tree tree = rbTree.new Tree();
+        // Scanner scanner =  new Scanner(System.in);
+        // boolean running = true;
+
+        // while(running) {
+        //     System.out.println("\n1. Add Key \n2. Is Exist \n3. Pre Order Transversal \n4. In Order Transveral \n5. Post Order Transversal \n6. Visualize \n0. Exit");
+        //     System.out.print("Masukkan Pilihanmu : ");
+        //     int pilihan = scanner.nextInt();
+
+        //     switch (pilihan) {
+        //         case 1:
+                    tree.add('g');
+                    tree.add('j');
+                    tree.add('s');
+                    tree.add('d');
+                    tree.add('k');
+                    tree.add('c');
+                    tree.add('a');
+                    tree.add('f');
+                    tree.add('b');
+                    tree.add('n');
+        //             System.out.println("Key berhasil ditambahkan!");
+        //             break;
+        //         case 2:
+        //             System.out.print("Masukan Key : ");
+        //             char key = scanner.next().charAt(0);
+        //             if (tree.isExist(key)) {
+        //                 System.out.println("Key " + key + "ditemukan!");
+        //             } else {
+        //                 System.out.println("Key " + key + "tidak ditemukan!");
+        //             }
+        //         break;
+        //         case 6:
+        //             System.out.println("\n \n ");
+        //             tree.printTree();
+        //         default:
+        //             break;
+        //     }
+
+
+        // }
+
+        // tree.add('k');
+        // tree.add('e');
+        // tree.add('i');
+        // tree.add('c');
+        // tree.add('j');
+        // tree.add('h');
+        // tree.add('b');
+        // tree.add('f'); 
+        // tree.add('a');
+        // tree.add('d');
         
 
-        tree.add('k');
-        tree.add('e');
-        tree.add('c');
-        tree.add('b');
-        tree.add('f');
-        tree.add('a');
-        tree.add('d');
-
+     
+        tree.printTree();
+        System.out.println("\n \n ");
+        System.out.println("Tinggi dari tree adalah: " + tree.height(tree.root));
         tree.displayKeysInOrder();
         tree.displayKeysPostOrder();
         tree.displayKeysPreOrder();
 
-
-     
-        tree.printTree();
     }
 }
