@@ -76,91 +76,93 @@ class Tree {
         } 
     }
 
-    public boolean add(char key) {
-        Node newNode = new Node(key);
-
-        if (isExist(root, key)) {
-            return false; 
-        }
-
-        if (root == null) {
-            root = newNode;
-        } else {
-            Node currentNode = root;
-            while (true) {
-                if (key < currentNode.getKey()) {
-                    if (currentNode.getLeft() == null) {
-                        currentNode.setLeft(newNode);
-                        newNode.setParent(currentNode);
-                        break;
-                    } else {
-                        currentNode = currentNode.getLeft();
-                    }
-                } else {
-                    if (currentNode.getRight() == null) {
-                        currentNode.setRight(newNode);
-                        newNode.setParent(currentNode);
-                        break;
-                    } else {
-                        currentNode = currentNode.getRight();
-                    }
-                }
-            }
-        }
-
-        newNode.setRed(true); 
-        fixAfterInsertion(newNode);
-
-        root.setRed(false); 
-        return true;
+public boolean add(char key) {
+    if (isExist(root, key)) {
+        return false; 
     }
 
-    private void fixAfterInsertion(Node newNode) {
-        while (newNode != root && newNode.getParent() != null && newNode.getParent().isRed()) {
-            Node parent = newNode.getParent();
-            Node grandParent = parent.getParent();
+    Node newNode = new Node(key);
+    newNode.setRed(true); // Node baru selalu berwarna merah
 
-            if (grandParent == null) {
-                break;
-            }
-
-           Node uncleRight = grandParent.getRight();
-
-            if (parent == grandParent.getLeft()) {
-                if (uncleRight != null && uncleRight.isRed()) {
-                    parent.setRed(false);
-                    uncleRight.setRed(false);
-                    grandParent.setRed(true);
-                    newNode = grandParent;
+    if (root == null) {
+        root = newNode;
+        root.setRed(false); // Root harus hitam
+    } else {
+        Node currentNode = root;
+        while (true) {
+            if (key < currentNode.getKey()) {
+                if (currentNode.getLeft() == null) {
+                    currentNode.setLeft(newNode);
+                    newNode.setParent(currentNode);
+                    break;
                 } else {
-                    if (newNode == parent.getRight()) {
-                        newNode = parent;
-                        rotateLeft(newNode);
-                    }
-                    parent.setRed(false);
-                    grandParent.setRed(true);
-                    rotateRight(grandParent);
+                    currentNode = currentNode.getLeft();
                 }
             } else {
-                Node uncleLeft = grandParent.getLeft();
-                if (uncleLeft != null && uncleLeft.isRed()) {
-                    parent.setRed(false);
-                    uncleLeft.setRed(false);
-                    grandParent.setRed(true);
-                    newNode = grandParent;
+                if (currentNode.getRight() == null) {
+                    currentNode.setRight(newNode);
+                    newNode.setParent(currentNode);
+                    break;
                 } else {
-                    if (newNode == parent.getLeft()) {
-                        newNode = parent;
-                        rotateRight(newNode);
-                    }
-                    parent.setRed(false);
-                    grandParent.setRed(true);
-                    rotateLeft(grandParent);
+                    currentNode = currentNode.getRight();
                 }
             }
         }
     }
 
+    fixAfterInsertion(newNode);
+    root.setRed(false); 
+
+    return true;
+}
+
+
+private void fixAfterInsertion(Node newNode) {
+    while (newNode != root && newNode.getParent().isRed()) {
+        Node parent = newNode.getParent();
+        Node grandParent = parent.getParent();
+
+        if (grandParent == null) {
+            break;
+        }
+
+        Node uncle = (parent == grandParent.getLeft()) ? grandParent.getRight() : grandParent.getLeft();
+
+        if (uncle != null && uncle.isRed()) {
+            // Recoloring
+            parent.setRed(false);
+            uncle.setRed(false);
+            grandParent.setRed(true);
+            newNode = grandParent;
+            
+            // Tambahkan pengecekan jika grandParent adalah root
+            if (newNode == root) {
+                newNode.setRed(false);
+                break;
+            }
+        } else {
+            if (parent == grandParent.getLeft()) {
+                if (newNode == parent.getRight()) {
+                    rotateLeft(parent);
+                    parent = newNode;  // Update parent setelah rotasi
+                }
+                rotateRight(grandParent);
+                parent.setRed(false);
+                grandParent.setRed(true);
+            } else {
+                if (newNode == parent.getLeft()) {
+                    rotateRight(parent);
+                    parent = newNode;  // Update parent setelah rotasi
+                }
+                rotateLeft(grandParent);
+                parent.setRed(false);
+                grandParent.setRed(true);
+            }
+            break; // Keluar dari loop setelah rotasi
+        }
+    }
+    root.setRed(false); // Pastikan root selalu hitam
+}
 
     private void rotateRight(Node node) {
         Node parent = node.getLeft();
@@ -207,8 +209,6 @@ class Tree {
         parent.setLeft(node);
         node.setParent(parent);
     }
-
-    //public int size (Node node)
 
     public void preOrderTraversal(Node node) {
         if (node!= null) {
