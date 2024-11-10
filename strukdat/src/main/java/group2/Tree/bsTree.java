@@ -208,22 +208,23 @@ public class bsTree {
                     }
                     break;
                 case 2:
-                    try {
                         System.out.print("Masukkan huruf: ");
                         char hurufRem = input.next().charAt(0);
                         tree.remove(hurufRem);
                         System.out.println("Nilai yang dihapus: " + hurufRem);
-                    } catch (EmptyStackException e) {
-                        System.out.println("Tree kosong!");
-                    }
+                        if (tree.isExist(hurufRem)) {
+                            System.out.println("Key " + hurufRem + " berhasil dihapus!");
+                        } else {
+                        System.out.println("Key " + hurufRem + " tidak ditemukan!");
+                        }
                     break;
                 case 3:
                     System.out.print("Masukan Key : ");
                     char key = input.next().charAt(0);
                     if (tree.isExist(key)) {
-                        System.out.println("Key " + key + "ditemukan!");
+                        System.out.println("Key " + key + " ditemukan!");
                     } else {
-                        System.out.println("Key " + key + "tidak ditemukan!");
+                        System.out.println("Key " + key + " tidak ditemukan!");
                     }
                     break;
                 case 4:
